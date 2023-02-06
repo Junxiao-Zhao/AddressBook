@@ -1,4 +1,6 @@
-public class Contact {
+import java.io.Serializable;
+
+public class Contact implements Serializable {
 
     private static int count = 0;
     private static int ID = 0;
@@ -29,6 +31,12 @@ public class Contact {
     public static void setCount(int num) {
         if (num >= 0) {
             count = num;
+        }
+    }
+
+    public static void setID(int newID) {
+        if (newID > ID) {
+            ID = newID;
         }
     }
 
