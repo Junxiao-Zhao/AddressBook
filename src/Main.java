@@ -5,7 +5,7 @@ public class Main {
 
     // Case 1: Add new contact
     private static Contact addNewContact(Scanner sc) {
-        String[] info = new String[] { "Name:  ", "Email: ", "Phone: ", "Notes: " };
+        String[] info = new String[] { "Name: ", "Email: ", "Phone: ", "Notes: " };
         System.out.println("\nMain Window --> Add a new contact window: (Enter the following information)");
         Utils.printBrokenLine("=", 75);
 
@@ -68,23 +68,19 @@ public class Main {
 
     // Case 4: Write into data.bin
     public static void writeData(ArrayList<Contact> addressBook) {
-        // Do nothing if empty
-        if (addressBook.isEmpty()) {
-            return;
-        }
 
         try {
             FileOutputStream f = new FileOutputStream("data.bin");
             ObjectOutputStream os = new ObjectOutputStream(f);
 
-            int lastID = addressBook.get(addressBook.size() - 1).getID();
-            int count = Contact.getCount();
-            os.writeObject(lastID);
-            os.writeObject(count);
+            Integer count = Contact.getCount();
+            os.writeObject(count); // count of Contacts
+            os.writeObject(addressBook.size()); // the size of current Contacts
 
             for (Contact c : addressBook) {
                 os.writeObject(c);
             }
+
             os.close();
 
         } catch (Exception e) {
@@ -101,18 +97,18 @@ public class Main {
         try {
             FileInputStream f = new FileInputStream("data.bin");
             ObjectInputStream is = new ObjectInputStream(f);
-            int lastID = (Integer) is.readObject();
-            int count = (Integer) is.readObject();
 
+            Contact.setCount((Integer) is.readObject()); // set the count
+
+            // read stored Contacts
             Contact c;
-            for (int i = 0; i < count; i++) {
+            int num = (Integer) is.readObject();
+            for (int i = 0; i < num; i++) {
                 c = (Contact) is.readObject();
                 addressBook.add(c);
             }
-            is.close();
 
-            Contact.setCount(count);
-            Contact.setID(lastID);
+            is.close();
 
         } catch (Exception e) {
             System.out.println(e);
@@ -121,7 +117,7 @@ public class Main {
         // Continue running until Quit
         while (str.compareTo("4") != 0) {
             System.out.println("Main Window:");
-            Utils.printBrokenLine("=", 12);
+            Utils.printBrokenLine("=", 13);
             System.out.print(
                     "Choose one of the following options:\n(1) Add a new contact\n(2) Search for contact\n(3) Display all contacts\n(4) Quit\nEnter your choice: ");
             str = sc.nextLine();
@@ -137,6 +133,7 @@ public class Main {
                     displayAllContacts(sc, addressBook);
                     break;
                 case "4":
+                    sc.close();
                     writeData(addressBook);
                     break;
             }

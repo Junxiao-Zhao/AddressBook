@@ -27,7 +27,7 @@ public class Search {
                     break;
             }
 
-            if (each.contains(target)) {
+            if (each.toLowerCase().contains(target.toLowerCase())) {
                 System.out.println(c);
             }
         }
@@ -52,7 +52,6 @@ public class Search {
                 }
             }
 
-            Contact.setCount(Contact.getCount() - 1); // Update the count
             System.out.println("Deleted....Press Enter to go back to the Main Window");
             sc.nextLine();
         }

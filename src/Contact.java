@@ -3,21 +3,19 @@ import java.io.Serializable;
 public class Contact implements Serializable {
 
     private static int count = 0;
-    private static int ID = 0;
 
+    private int id;
     private String name;
     private String email;
     private String phone;
     private String notes;
-    private int id;
 
     public Contact(String[] info) {
-        this.id = ++ID;
+        this.id = ++count;
         this.name = info[0];
         this.email = info[1];
         this.phone = info[2];
         this.notes = info[3];
-        count++;
     }
 
     public static int getCount() {
@@ -31,12 +29,6 @@ public class Contact implements Serializable {
     public static void setCount(int num) {
         if (num >= 0) {
             count = num;
-        }
-    }
-
-    public static void setID(int newID) {
-        if (newID > ID) {
-            ID = newID;
         }
     }
 
