@@ -18,18 +18,9 @@ public class Contact implements Serializable {
         this.notes = info[3];
     }
 
+    // Getters
     public static int getCount() {
         return count;
-    }
-
-    public static void resetCount() {
-        count = 0;
-    }
-
-    public static void setCount(int num) {
-        if (num >= 0) {
-            count = num;
-        }
     }
 
     public int getID() {
@@ -46,6 +37,33 @@ public class Contact implements Serializable {
 
     public String getPhone() {
         return this.phone;
+    }
+
+    // Setters
+    public static void resetCount() {
+        count = 0;
+    }
+
+    public static void setCount(int num) {
+        if (num >= 0) {
+            count = num;
+        }
+    }
+
+    public void setID(int newID) {
+        this.id = newID;
+    }
+
+    public void setName(String newName) {
+        this.name = newName;
+    }
+
+    public void setEmail(String newEmail) {
+        this.email = newEmail;
+    }
+
+    public void setPhone(String newPhone) {
+        this.phone = newPhone;
     }
 
     @Override
